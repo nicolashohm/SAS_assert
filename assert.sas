@@ -21,16 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-%macro assertEquals(expected, actual, message);
+%macro assert_equals(expected, actual, message);
     %if &expected ne &actual %then %do;
         %put ERROR: Failed asserting that &actual is equal to &expected - &message;
     %end;
 %mend;
 
 * Asserts that the value returned by the query in actual is equals to the expectation;
-%macro assertSqlEquals(expected, query, message);
+%macro assert_equals_sql(expected, query, message);
     proc sql noprint;
         &query;
     quit;
-    %assertEquals(&expected, &actual);
+    %assert_equals(&expected, &actual, &message);
 %mend;
