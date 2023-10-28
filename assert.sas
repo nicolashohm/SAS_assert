@@ -34,3 +34,24 @@ SOFTWARE.
     quit;
     %assert_equals(&expected, &actual, &message);
 %mend;
+
+/**
+ * @param expectedQuery SQL Query storing a single value into expected
+ * @param actualAquery SQL Query storing a single value into actual
+ * @param message Printed in addition to the error message if assert fails
+ */
+%macro assert_sql_equals_sql(expected_query, actual_query, message);
+    proc sql noprint;
+        &expected_query;
+    quit;
+    proc sql noprint;
+        &actual_query;
+    quit;
+    %assert_equals(&expected, &actual, &message);
+%mend;
+
+%macro assert_true(expression, message);
+	%if not &expression %then %do;
+        %put ERROR: Failed asserting that &expression is true - &message;
+    %end;
+%mend;

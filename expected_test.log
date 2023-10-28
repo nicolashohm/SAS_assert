@@ -1,2 +1,4 @@
 ERROR: Failed asserting that 3 is equal to 5 - Equals error
 ERROR: Failed asserting that 3 is equal to 4 - Query error
+ERROR: Failed asserting that 3 is equal to 1 - Query query error
+ERROR: Failed asserting that (1=0) is true - True error
