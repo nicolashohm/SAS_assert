@@ -27,12 +27,26 @@ SOFTWARE.
     %end;
 %mend;
 
+%macro assert_not_equals(expected, actual, message);
+    %if &expected eq &actual %then %do;
+        %put ERROR: Failed asserting that &actual is equal to &expected - &message;
+    %end;
+%mend;
+
 * Asserts that the value returned by the query in actual is equals to the expectation;
 %macro assert_equals_sql(expected, query, message);
     proc sql noprint;
         &query;
     quit;
     %assert_equals(&expected, &actual, &message);
+%mend;
+
+* Asserts that the value returned by the query in actual is equals to the expectation;
+%macro assert_not_equals_sql(expected, query, message);
+    proc sql noprint;
+        &query;
+    quit;
+    %assert_not_equals(&expected, &actual, &message);
 %mend;
 
 /**
